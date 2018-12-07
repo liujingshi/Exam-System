@@ -35,10 +35,17 @@ main {
     position: fixed;
     width: 80px;
     height: 80px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     background: rgba(0, 134, 123, 0.7);
+    -webkit-transition: all .6s;
     transition: all .6s;
     color: white;
     z-index: 9999;
@@ -56,6 +63,8 @@ main {
 }
 
 .layui-form-radio {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
 }
 
