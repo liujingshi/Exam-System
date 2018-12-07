@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>近代史模拟考试系统</title>
+    <link rel="stylesheet" href="js/layui/css/layui.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+    <main>
+        <form id="exam" class="layui-form" onsubmit="return false;">
+            <div id="vue-div" class="layui-container">
+                <div class="layui-row layui-col-space10">
+                    <div v-for="(item, index) in item1" class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                        <div class="layui-card">
+                            <div class="layui-card-header"><span class="green">单选、第{{index+1}}题</span></div>
+                            <div class="layui-card-body H">
+                                <div class="layui-form-item">
+                                    {{item.Q}}
+                                </div>
+                                <div class="layui-form-item">
+                                    <input type="radio" :name="'danxuan'+index" value="A" :title="'A.'+item.A">
+                                </div>
+                                <div class="layui-form-item">
+                                    <input type="radio" :name="'danxuan'+index" value="B" :title="'B.'+item.B">
+                                </div>
+                                <div class="layui-form-item">
+                                    <input type="radio" :name="'danxuan'+index" value="C" :title="'C.'+item.C">
+                                </div>
+                                <div class="layui-form-item">
+                                    <input type="radio" :name="'danxuan'+index" value="D" :title="'D.'+item.D">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row layui-col-space10">
+                    <div v-for="(item, index) in item2" class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                        <div class="layui-card">
+                            <div class="layui-card-header"><span class="green">多选、第{{index+1}}题</span></div>
+                            <div class="layui-card-body H">
+                                <div class="layui-form-item">
+                                    {{item.Q}}
+                                </div>
+                                <div class="layui-form-item">
+                                    <input type="checkbox" :name="'duoxuan'+index" value="A" :title="'A.'+item.A">
+                                </div>
+                                <div class="layui-form-item">
+                                    <input type="checkbox" :name="'duoxuan'+index" value="B" :title="'B.'+item.B">
+                                </div>
+                                <div class="layui-form-item">
+                                    <input type="checkbox" :name="'duoxuan'+index" value="C" :title="'C.'+item.C">
+                                </div>
+                                <div class="layui-form-item">
+                                    <input type="checkbox" :name="'duoxuan'+index" value="D" :title="'D.'+item.D">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="submit" lay-submit lay-filter="ok">
+                交卷
+            </div>
+        </form>
+        <div class="clock"></div>
+        <form id="exam-result" class="layui-form">
+            <div id="vue-div2" class="layui-container">
+                <div class="layui-row layui-col-space10">
+                    <div v-for="(item, index) in item1" class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                        <div class="layui-card">
+                            <div class="layui-card-header"><span class="green">单选、第{{index+1}}题</span></div>
+                            <div class="layui-card-body H">
+                                <div class="layui-form-item">
+                                    {{item.Q}}
+                                </div>
+                                <div class="layui-form-item">
+                                    <input type="radio" :name="'rdanxuan'+index" value="A" :title="'A.'+item.A">
+                                </div>
+                                <div class="layui-form-item">
+                                    <input type="radio" :name="'rdanxuan'+index" value="B" :title="'B.'+item.B">
+                                </div>
+                                <div class="layui-form-item">
+                                    <input type="radio" :name="'rdanxuan'+index" value="C" :title="'C.'+item.C">
+                                </div>
+                                <div class="layui-form-item">
+                                    <input type="radio" :name="'rdanxuan'+index" value="D" :title="'D.'+item.D">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row layui-col-space10">
+                    <div v-for="(item, index) in item2" class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                        <div class="layui-card">
+                            <div class="layui-card-header"><span class="green">多选、第{{index+1}}题</span></div>
+                            <div class="layui-card-body H">
+                                <div class="layui-form-item">
+                                    {{item.Q}}
+                                </div>
+                                <div class="layui-form-item">
+                                    <input type="checkbox" :name="'rduoxuan'+index" value="A" :title="'A.'+item.A">
+                                </div>
+                                <div class="layui-form-item">
+                                    <input type="checkbox" :name="'rduoxuan'+index" value="B" :title="'B.'+item.B">
+                                </div>
+                                <div class="layui-form-item">
+                                    <input type="checkbox" :name="'rduoxuan'+index" value="C" :title="'C.'+item.C">
+                                </div>
+                                <div class="layui-form-item">
+                                    <input type="checkbox" :name="'rduoxuan'+index" value="D" :title="'D.'+item.D">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="reset" lay-submit lay-filter="reset">
+                重新开始
+            </div>
+        </form>
+        
+    </main>
+</body>
+<script src="js/jquery.js"></script>
+<script src="js/vue.js"></script>
+<script src="js/layui/layui.js"></script>
+<script src="data/danxuan.js"></script>
+<script src="data/duoxuan.js"></script>
+<script src="js/main.js"></script>
+<script src="js/clock.js"></script>
+
+</html>
