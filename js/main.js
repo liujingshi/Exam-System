@@ -17,24 +17,28 @@ layui.use(['layer', 'form'], function () {
             for (var i = 0; i < duoxuanNumber; i++) {
                 item2[i]['user'] = "";
                 $("input:checkbox[name='duoxuan" + i + "']:checked").each(function () {
-                    item2[i]['user'] += $(this).val();
+                    if ($(this).val() != undefined) {
+                        item2[i]['user'] += $(this).val();
+                    }
                 });
             }
             for (var i = 0; i < danxuanNumber; i++) {
                 item1[i]['user'] = "";
-                item1[i]['user'] = data['danxuan' + i];
+                if (data['danxuan' + i] != undefined) {
+                    item1[i]['user'] = data['danxuan' + i];
+                }
             }
+            showResult();
             layer.close(index);
         });
         return false;
     });
-    form.on('submit(reset)', function (data) {
+    $(".reset").bind("click", function() {
         layer.confirm('确认要重新开始吗?', function (index) {
-            document.location.reload;
+            document.location.reload();
             layer.close(index);
         });
-        return false;
-    });
+    }); 
 });
 
 var rand = function (n) {
@@ -78,35 +82,56 @@ var show = function () {
 getItem();
 show();
 
-$(".submit").bind("click", function () {
-    $("#exam").submit();
-});
-
 var showResult = function () {
     var score1 = 0;
     var score2 = 0;
     for (var i = 0; i < danxuanNumber; i++) {
         if (item1[i].user == item1[i].ANS) {
             score1++;
+            item1[i]['state'] = 1;
+        } else {
+            item1[i]['state'] = 0;
         }
     }
     for (var i = 0; i < duoxuanNumber; i++) {
         if (item2[i].user == item2[i].ANS) {
             score2++;
+            item2[i]['state'] = 1;
+        } else {
+            item2[i]['state'] = 0;
         }
     }
     var score = score1 + score2;
-    $("#exam, .submit, .clock").hide();
-    new Vue({
-        el: '#vue-div1',
-        data: {
-            item1: item1,
-            item2: item2
+    $(".submit, .clock").hide();
+    $(".reset").show();
+    var i = 0;
+    $(".layui-row").eq(0).find(".layui-card").each(function () {
+        var $title = $(this).find(".green").eq(0);
+        if (item1[i].state == 0) {
+            $title.removeClass("green");
+            $title.addClass("red");
+            $title.html($title.html() + "、错误、正确答案:" + item1[i].ANS);
+        } else {
+            $title.html($title.html() + "、正确");
         }
+        i++;
     });
-    $("#exam, .reset").show();
-    layer.alert("总分:<br>单选:<br>多选:", {
+    i = 0;
+    $(".layui-row").eq(1).find(".layui-card").each(function () {
+        var $title = $(this).find(".green").eq(0);
+        if (item2[i].state == 0) {
+            $title.removeClass("green");
+            $title.addClass("red");
+            $title.html($title.html() + "、错误、正确答案:" + item2[i].ANS);
+        } else {
+            $title.html($title.html() + "、正确");
+        }
+        i++;
+    });
+    layer.alert("总分:" + score + "<br>单选:" + score1 + "<br>多选:" + score2, {
         title: "成绩",
         icon: 6
     });
 }
+
+
